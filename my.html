@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>WepApp</title>
+    <link rel="stylesheet" href="css/my.css">
+</head>
+
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <div id="accountInfo">
+        <div id="name">
+            Name:
+        </div>
+        <div id="balance">
+            Balance:
+        </div>
+        <div id="currency">
+            Currency:
+        </div>
+
+    </div>
+
+    <div id="makeOffer">
+        Make Offer
+        <input type="text" name="Amount" id="myInput">
+        <button onclick="makeOffer();" id="myBtn">Make Offer</button>
+
+    </div>
+
+    <div id="otherOffers">
+        Active Sales
+    </div>
+
+
+    <script>
+    // Account Info
+    $(document).ready(function(){
+        $.get("http://52.57.228.6//man2API/php/BankPhp.php?what=account_info&apikey=7e615a98c167b5592497d27b4f1d80af", function(data){
+            var accInfo = $.parseJSON(data);
+            console.log(accInfo);
+            $("#name").append(accInfo.user.name);
+            $("#balance").append(accInfo.data[0].amount);
+            $("#currency").append(accInfo.data[0].currency);
+        });
+    });
+
+    </script>
+
+    <script>
+        // Make Offer - Label + button to make sale
+
+        function makeOffer(){
+            var amount = $("#myInput").val(); // Gemmer tekst fra input i amount
+            console.log(amount) //Udskriver værdien fra tekstfield i console (Virker fint)
+            $.get("http://52.57.228.6//man2API/php/BankPhp.php?what=sell&amount=" + amount + "&apikey=7e615a98c167b5592497d27b4f1d80af", function(data){
+
+            });
+        }
+    </script>
+
+    <script>
+    // All Offers - Button to buy
+    $.get("http://52.57.228.6//man2API/php/BankPhp.php?what=offers&apikey=7e615a98c167b5592497d27b4f1d80af", function(data) {
+        var offers = $.parseJSON(data).data;
+        console.log(offers);
+
+        var i = 0;
+        for (i; i < offers.length; i++) {
+            var offer = offers[i];
+            $("#otherOffers").append(
+                    "<div id='offer'>" + offer.currency + " " + offer.amount //Knap
+            )
+        }
+
+
+    });
+    </script>
+
+</body>
+</html>
