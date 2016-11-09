@@ -4,80 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <title>WepApp</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <link rel="stylesheet" href="css/my.css">
+
 </head>
 
 <body>
+<div id="parent">
+
+    <!-- Account Info -->
+    <div class="row">
+        <div class="col-md-8 center">
+            <div class="well">
+                <div id="accountInfo">
+                    <h2>Account Info</h2>
+                    <div id="name">
+                        Name:
+                    </div>
+                    <div id="balance">
+                        Balance:
+                    </div>
+                    <div id="currency">
+                        Currency:
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row col-md-8 center">
+        <!-- Make Offer -->
+        <div class="col-md-4">
+            <div id="makeOffer" class="well">
+                <h4>Create an offer!</h4>
+                <input type="text" name="Amount" id="myOffer">
+                <button class="btn btn-default" onclick="makeOffer();" id="offerBtn">Make Offer</button>
+            </div>
+        </div>
+
+        <!-- Exchange Rate -->
+        <div class="col-md-4">
+            <div id="exchangeRate" class="well">
+                <h4>Check exchange rate for a specific currency!</h4>
+                <input type="text" name="Exchange Rate" id="myExchange">
+                <button class="btn btn-default" onclick="exchange();" id="exchangeBtn">Get Exchange Rate</button>
+                <p id="exRate">Exchange Rate: </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other Offers -->
+    <div class="row">
+        <div class="col-md-8 center">
+            <div class="well">
+                <h3>All available sales</h3>
+                <table class='table table-striped'>
+                    <thead>
+                    <th>Currency</th>
+                    <th>Amount</th>
+                    <th>Id</th>
+                    <th>Date</th>
+                    <th>Buy</th>
+                    </thead>
+
+                    <tbody id="offerBody">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-    <div id="accountInfo">
-        <div id="name">
-            Name:
-        </div>
-        <div id="balance">
-            Balance:
-        </div>
-        <div id="currency">
-            Currency:
-        </div>
-
-    </div>
-
-    <div id="makeOffer">
-        Make Offer
-        <input type="text" name="Amount" id="myInput">
-        <button onclick="makeOffer();" id="myBtn">Make Offer</button>
-
-    </div>
-
-    <div id="otherOffers">
-        Active Sales
-    </div>
-
-
-    <script>
-    // Account Info
-    $(document).ready(function(){
-        $.get("http://52.57.228.6//man2API/php/BankPhp.php?what=account_info&apikey=7e615a98c167b5592497d27b4f1d80af", function(data){
-            var accInfo = $.parseJSON(data);
-            console.log(accInfo);
-            $("#name").append(accInfo.user.name);
-            $("#balance").append(accInfo.data[0].amount);
-            $("#currency").append(accInfo.data[0].currency);
-        });
-    });
-
-    </script>
-
-    <script>
-        // Make Offer - Label + button to make sale
-
-        function makeOffer(){
-            var amount = $("#myInput").val(); // Gemmer tekst fra input i amount
-            console.log(amount) //Udskriver værdien fra tekstfield i console (Virker fint)
-            $.get("http://52.57.228.6//man2API/php/BankPhp.php?what=sell&amount=" + amount + "&apikey=7e615a98c167b5592497d27b4f1d80af", function(data){
-
-            });
-        }
-    </script>
-
-    <script>
-    // All Offers - Button to buy
-    $.get("http://52.57.228.6//man2API/php/BankPhp.php?what=offers&apikey=7e615a98c167b5592497d27b4f1d80af", function(data) {
-        var offers = $.parseJSON(data).data;
-        console.log(offers);
-
-        var i = 0;
-        for (i; i < offers.length; i++) {
-            var offer = offers[i];
-            $("#otherOffers").append(
-                    "<div id='offer'>" + offer.currency + " " + offer.amount //Knap
-            )
-        }
-
-
-    });
-    </script>
-
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<script src=js/my.js></script>
 </body>
 </html>

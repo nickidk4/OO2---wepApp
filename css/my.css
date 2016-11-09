@@ -1,17 +1,9 @@
-#accountInfo {
-    background-color: lightgreen;
-    margin-bottom: 8px;
+.center {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#makeOffer {
-    background-color: lightgreen;
-    margin-bottom: 8px;
-}
-
-#otherOffers {
-    background-color: lightgreen;
-}
-#offer {
-    background-color: white;
-    margin-top: 5px;
+body {
+    background-color: lightslategrey;
 }
